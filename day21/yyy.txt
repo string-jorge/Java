@@ -1,0 +1,25 @@
+}
+
+	}
+		}
+			System.out.println(line);
+		while((line = br.readLine()) != null) {
+		String line;
+		BufferedReader br = new BufferedReader(new FileReader("xxx.txt"));
+	public static void main(String[] args) throws IOException {
+	 */
+	 * @throws IOException 
+	 * newLine();
+	 * readLine();
+	 * 带缓冲区的流中的特殊方法
+	/**
+
+public class Test4_Buffered {
+
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+
+package com.qiao.chario;

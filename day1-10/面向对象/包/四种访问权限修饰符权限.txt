@@ -1,0 +1,9 @@
+		本类		同一个包下(子类和无关类)		不同包下(子类)		不同包下(无关类)
+
+private		Y
+
+默认		Y		Y
+
+protected		Y		Y				Y
+
+public		Y		Y				Y			Y
