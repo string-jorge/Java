@@ -1,4 +1,4 @@
-package com.qaio.模板设计模式;
+package com.qiao.模板设计模式;
 
 public class Test1_Template {
 
