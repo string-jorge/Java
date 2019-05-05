@@ -5,10 +5,12 @@ Some Java exercises
 
 1.记事本
 
-2.Eclipse	3.7.2
+2.EditPlus
 
-3.JDK	1.7.0_72
+3.Eclipse	3.7.2
 
-4.IntelliJ IDEA 2017.3.6
+4.JDK	1.7.0_72
 
-5.JDK	9.0.4
+5.IntelliJ IDEA 2017.3.6
+
+6.JDK	9.0.4
