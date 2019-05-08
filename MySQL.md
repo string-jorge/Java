@@ -724,3 +724,4 @@
                             -- 普通内链接
                             SELECT * FROM emp t1 , dept t2 WHERE t1.dept_id = t2.id and t1.join_date > "2011-11-11";
 ```
+
