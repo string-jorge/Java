@@ -577,3 +577,150 @@
 			3. 使用数据库
 			4. 执行文件。source 文件路径
 2. 图形化工具：Navicat 12 for MySQL的操作
+
+#### 多表查询
+
+```mysql
+-- 练习多表查询
+	-- 准备数据库和两张表
+
+    CREATE DATABASE demo;
+
+    USE demo;
+
+    # 创建部门表
+    CREATE TABLE dept(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        NAME VARCHAR(20)
+    );
+    INSERT INTO dept (NAME) VALUES ('开发部'),('市场部'),('财务部');
+    # 创建员工表
+    CREATE TABLE emp (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        NAME VARCHAR(10),
+        gender CHAR(1), -- 性别
+        salary DOUBLE, -- 工资
+        join_date DATE, -- 入职日期
+        dept_id INT,
+        FOREIGN KEY (dept_id) REFERENCES dept(id) -- 外键，关联部门表(部门表的主键)
+    );
+    INSERT INTO emp(NAME,gender,salary,join_date,dept_id) VALUES('孙悟空','男',7200,'2013-02-24',1);
+    INSERT INTO emp(NAME,gender,salary,join_date,dept_id) VALUES('猪八戒','男',3600,'2010-12-02',2);
+    INSERT INTO emp(NAME,gender,salary,join_date,dept_id) VALUES('唐僧','男',9000,'2008-08-08',2);
+    INSERT INTO emp(NAME,gender,salary,join_date,dept_id) VALUES('白骨精','女',5000,'2015-10-07',3);
+    INSERT INTO emp(NAME,gender,salary,join_date,dept_id) VALUES('蜘蛛精','女',4500,'2011-03-14',1);
+
+    -- 笛卡儿积A , B
+    SELECT * FROM emp,dept;
+
+    -- 1.内链接查询
+
+        -- 1.隐式内链接:使用where条件消除无用的数据
+
+            -- 查询所有员工信息和对应的信息部门
+            SELECT * FROM emp,dept WHERE emp.dept_id = dept.id;
+
+            -- 查询员工表的 名称,性别,部门表的 名称
+            SELECT emp.`NAME`,emp.gender,dept.name FROM emp,dept	WHERE emp.dept_id = dept.id;
+            -- sql标准的写法
+            SELECT
+                t1.`NAME`,-- 员工表的姓名
+                t1.gender,-- 员工表的性别
+                t2.`NAME`-- 部门表的名称
+            FROM
+                emp t1,
+                dept t2
+            WHERE
+                t1.dept_id = t2.id;
+
+        -- 2.显式内链接
+
+            -- 语法:
+                SELECT 字段列表 FROM 表名1 [INNER] JOIN 表名2 ON 条件;
+
+            -- 查询所有员工信息和对应的信息部门
+                 SELECT * FROM emp INNER JOIN dept ON emp.dept_id = dept.id;
+
+            -- 内连接查询要清楚的:
+                -- 1.从哪些表中查询数据
+                -- 2.条件是什么
+                -- 3.查询哪些字段
+
+    -- 2.外连接查询
+
+        -- 1.左外连接
+
+            -- 语法
+                SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件;
+            -- 查询的是左表的所有数据,以及其交集部分
+
+            -- 查询所有员工信息,如果员工有部门,则查询部门名称,没有部门,则不显示部门名称
+
+            -- 使用外连接查出来的信息不全,查出5条记录
+                SELECT
+                    t1.*,t2.`NAME`
+                FROM
+                    emp t1,dept t2
+                WHERE
+                    t1.dept_id = t2.id;
+
+            -- 使用左外连接查询,查出六条记录
+                SELECT
+                    t1.*,
+                    t2.`NAME`
+                FROM
+                    emp t1
+                LEFT JOIN
+                    dept t2
+                ON
+                    t1.dept_id = t2.id;
+
+        -- 2.右外连接
+            -- 语法
+                SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件;
+                -- 查询的是右表的所有数据,以及其交集部分
+
+    -- 3.子查询
+        -- 概念:查询中嵌套查询,称嵌套查询为子查询
+
+        -- 查询工资最高的员工信息
+
+        -- 1.查询最高工资是多少	9000
+        SELECT MAX(emp.salary) FROM emp;
+
+        -- 2.查询员工信息,并且工资等于9000
+        SELECT * FROM emp WHERE emp.salary = 9000;
+
+        -- 子查询,一条语句完成这个操作
+
+        SELECT * FROM emp WHERE emp.salary = (SELECT MAX(emp.salary) FROM emp);
+
+            -- 子查询的不同情况
+
+                -- 1.子查询的结果是单行单列的:
+                    -- 子查询可以作为条件,使用运算符去判断 < > = >= <=...
+                        -- 查询员工工资小于平均工资的信息
+                            SELECT * FROM emp WHERE emp.salary < (SELECT AVG(emp.salary) FROM emp);
+
+                -- 2.子查询的结果是多行单列的:
+                    -- 子查询可以作为条件,使用运算符 IN 去判断
+                        -- 查询'财务部'和'市场部'所有的员工信息
+                            -- 第一步
+                            SELECT id FROM dept WHERE dept.name IN ('财务部','市场部');
+                            -- 第二部
+                            SELECT * FROM emp WHERE dept_id = 2 OR dept_id = 3;
+                            SELECT * FROM emp WHERE dept_id IN (2,3);
+
+                            -- 子查询
+                            SELECT * FROM emp WHERE dept_id IN (SELECT id FROM dept WHERE dept.`NAME` IN("财务部","市场部"));
+                -- 3.子查询的结果是多行多列的:
+                    -- 子查询可以作为一张虚拟表
+                        -- 查询员工的入职日期是2011-11-11日之后的员工信息和部门信息
+                            -- 第一步
+                            SELECT * FROM emp WHERE emp.join_date > "2011-11-11";
+                            -- 子查询
+                            SELECT * FROM dept t1 , (SELECT * FROM emp WHERE emp.join_date > "2011-11-11") t2 WHERE t1.id = t2.dept_id;
+
+                            -- 普通内链接
+                            SELECT * FROM emp t1 , dept t2 WHERE t1.dept_id = t2.id and t1.join_date > "2011-11-11";
+```
