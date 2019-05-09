@@ -14,3 +14,7 @@ Some Java exercises
 5.IntelliJ IDEA 2017.3.6
 
 6.JDK	9.0.4
+
+7.MySQL	5.5.40
+
+8.Navicat 12 for MySQL
