@@ -581,7 +581,7 @@
 #### 多表查询
 
 ```mysql
--- 练习多表查询
+-- 多表查询
 	-- 准备数据库和两张表
 
     CREATE DATABASE demo;
@@ -725,3 +725,4 @@
                             SELECT * FROM emp t1 , dept t2 WHERE t1.dept_id = t2.id and t1.join_date > "2011-11-11";
 ```
 
+##### 多表查询的练习
