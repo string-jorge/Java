@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+//查询,返回ResultSet
 public class JDBC_Query {
 
     public static void main(String[] args) {
