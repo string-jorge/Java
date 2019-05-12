@@ -66,7 +66,7 @@ public class JDBC_Login {
     }
 
     //登录方法
-    //使用PrepareStatement对象,防止sql注入问题,更加安全
+    //使用PreparedStatement对象,防止sql注入问题,更加安全
     public static boolean login2(String username, String password) {
         if(username != null && password != null) {
             //连接数据库判断是否登录成功
