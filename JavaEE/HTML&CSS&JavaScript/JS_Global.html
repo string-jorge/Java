@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Global对象</title>
+
+    <script>
+
+        /*
+            Global:全局对象
+                1.特点:Global中封装的方法不需要对象就可以直接调用;方法名();
+                2.方法:
+                    encodeURI():url编码
+                    decodeURI():url解码
+
+                    encodeURIComponent():url编码
+                    decodeURIComponent():url解码
+
+                    parseInt():将字符串转为数字
+                        * 逐一判断每个字符串是否是数字,直到不是数字为止,将前边数字部分转为number
+                    isNaN():判断一个值是否是NaN
+                        * NaN六亲不认,连自己都不认,NaN参与的==比较全部为false
+                    eval():将JavaScript 字符串,并把他作为脚本代码来执行
+                3.URL编码:
+                    他好我也好 = %E4%BB%96%E5%A5%BD%E6%88%91%E4%B9%9F%E5%A5%BD
+        */
+
+        var str = "http://www.baidu.com?wd=他好我也好";
+        var url = encodeURI(str);
+        document.write(url + "<br>");
+        var s = decodeURI(url);
+        document.write(s + "<br>");//http://www.baidu.com?wd=他好我也好
+
+        var str1 = "http://www.baidu.com?wd=他好我也好";
+        var url1 = encodeURIComponent(str1 + "<br>");
+        document.write(url1 + "<br>");
+        var s1 = decodeURIComponent(url + "<br>");
+        document.write(s1);//http://www.baidu.com?wd=他好我也好
+
+        var str = "a234abc";
+        var number = parseInt(str);
+        //alert(number + 1);
+
+        var a = "NaN";
+        document.write(a == NaN);//false
+        document.write(isNaN(a));//true
+
+        var jscode = "alert(123)";
+        eval(jscode);
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

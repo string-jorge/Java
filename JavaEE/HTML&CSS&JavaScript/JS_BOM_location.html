@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location地址栏对象</title>
+</head>
+<body>
+    <input type="button" id="btn" value="刷新">
+
+    <input type="button" id="go" value="go">
+    <script>
+
+        /*
+            location:地址栏对象
+                1.创建
+                    1.window.location
+                    2.location
+                2.属性
+                    href:设置或返回完整的URL
+                3.方法
+                    reload():重新加载当前文档;刷新
+         */
+
+        //reload方法,定义一个按钮,点击按钮,刷新当前页面
+        //1.获取按钮对象
+        var btn = document.getElementById("btn");
+        //2.绑定单击事件
+        btn.onclick = function () {
+            //3.刷新页面
+            location.reload();
+        }
+
+        //获取href
+        var href = location.href;
+        //alert(href);
+        //点击按钮,去访问www.baidu.com官网
+        var go = document.getElementById("go");
+        //2.绑定单击事件
+        go.onclick = function () {
+            //3.访问www.baidu.com官网
+            location.href = "https://www.baidu.com";
+        }
+
+    </script>
+</body>
+</html>
