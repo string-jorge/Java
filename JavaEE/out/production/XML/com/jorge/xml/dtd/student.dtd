@@ -1,0 +1,10 @@
+<!--根元素-->
+<!ELEMENT students (student+) >
+<!--子元素-->
+<!ELEMENT student (name,age,sex)>
+<!--孙元素-->
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
+<!ELEMENT sex (#PCDATA)>
+<!--子元素的属性必须唯一-->
+<!ATTLIST student number ID #REQUIRED>
