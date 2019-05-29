@@ -45,16 +45,16 @@ public @interface MyAnnotation {
 
     //void show();      //不能没有返回值
 
-    int value();        //返回基本数据类型
+    //int value();        //返回基本数据类型
 
-    Person per();       //返回枚举类型
+    //Person per();       //返回枚举类型
 
     //String name() default "张三";
 
     //String show2();     //返回字符串类型
 
-    MyAnnotation2 annotation2();      //返回注解
+    //MyAnnotation2 annotation2();      //返回注解
 
-    String[] arr();       //返回以上类型的数组
+    //String[] arr();       //返回以上类型的数组
 
 }
